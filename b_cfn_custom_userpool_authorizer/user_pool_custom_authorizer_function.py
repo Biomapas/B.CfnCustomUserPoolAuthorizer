@@ -2,7 +2,9 @@ from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_lambda import Function, Code, Runtime, CfnPermission
 from aws_cdk.aws_logs import RetentionDays
 from aws_cdk.core import Duration, Stack
-from b_lambda_layer_common.layer import Layer as BLayer
+from b_lambda_layer_common.layer_v2 import LayerV2 as BLayer
+from b_lambda_layer_common.package_version import PackageVersion
+
 from b_cfn_custom_userpool_authorizer.user_pool_config import UserPoolConfig
 
 
@@ -27,6 +29,9 @@ class AuthorizerFunction(Function):
                 BLayer(
                     scope=scope,
                     name=f'{name}BCommonLayer',
+                    dependencies={
+                        'python-jose': PackageVersion.from_string_version('3.3.0')
+                    }
                 )
             ],
             log_retention=RetentionDays.ONE_MONTH,

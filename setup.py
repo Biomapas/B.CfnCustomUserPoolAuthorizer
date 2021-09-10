@@ -28,7 +28,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'b-continuous-subprocess>=0.3.2,<1.0.0',
-        'b-lambda-layer-common>=1.17.0,<2.0.0',
+        'b-lambda-layer-common>=1.18.0,<2.0.0',
         'aws_cdk.aws_apigatewayv2>=1.90.0',
         'aws_cdk.aws_lambda>=1.90.0',
         'aws-cdk.assets>=1.90.0',

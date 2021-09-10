@@ -40,7 +40,7 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
                 f'arn:aws:apigateway:{scope.region}:'
                 f'lambda:path/2015-03-31/functions/arn:'
                 f'aws:lambda:{scope.region}:{scope.account}:'
-                f'function:{lambda_function}/invocations'
+                f'function:{lambda_function.function_name}/invocations'
             ),
             identity_source=[],
         )

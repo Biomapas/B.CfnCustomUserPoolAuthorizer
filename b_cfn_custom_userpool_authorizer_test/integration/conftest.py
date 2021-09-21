@@ -7,4 +7,5 @@ def pytest_sessionstart(session):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    inf_destroy()
+    # inf_destroy()
+    pass

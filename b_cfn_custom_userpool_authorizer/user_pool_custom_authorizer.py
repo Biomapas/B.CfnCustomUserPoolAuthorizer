@@ -29,6 +29,12 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
             user_pool_config=user_pool_config
         )
 
+        # These environment variables are necessary for a lambda function to create
+        # a policy document to allow/deny access. Read more here:
+        # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
+        lambda_function.add_environment('AWS_ACCOUNT', scope.account)
+        lambda_function.add_environment('AWS_API_ID', api.ref)
+
         # Constructed by reading this documentation:
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-authorizer.html
         super().__init__(
@@ -37,7 +43,7 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
             name=name,
             api_id=api.ref,
             authorizer_payload_format_version='2.0',
-            authorizer_result_ttl_in_seconds=60,
+            authorizer_result_ttl_in_seconds=0,
             authorizer_type='REQUEST',
             authorizer_uri=(
                 f'arn:aws:apigateway:{scope.region}:'

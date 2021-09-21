@@ -10,8 +10,10 @@ from b_cfn_lambda_integration.lambda_integration import LambdaIntegration
 
 
 class Infrastructure(TestingStack):
-    API_URL = 'ApiUrl'
-    API_ENDPOINT = 'ApiEndpoint'
+    API_URL_KEY = 'ApiUrl'
+    API_ENDPOINT_KEY = 'ApiEndpoint'
+    USER_POOL_ID_KEY = 'UserPoolId'
+    USER_POOL_CLIENT_ID_KEY = 'UserPoolClientId'
 
     def __init__(self, scope: Construct) -> None:
         super().__init__(scope=scope)
@@ -22,13 +24,13 @@ class Infrastructure(TestingStack):
             scope=self,
             id='UserPool',
             user_pool_name=f'{prefix}UserPool',
-            account_recovery=AccountRecovery.EMAIL_ONLY,
+            account_recovery=AccountRecovery.NONE,
             auto_verify=AutoVerifiedAttrs(email=True, phone=False),
             self_sign_up_enabled=False,
-            sign_in_aliases=SignInAliases(email=True, phone=False, preferred_username=True, username=True),
+            sign_in_aliases=SignInAliases(email=False, phone=False, preferred_username=True, username=True),
             sign_in_case_sensitive=True,
             standard_attributes=StandardAttributes(
-                email=StandardAttribute(required=True, mutable=True),
+                email=StandardAttribute(required=False, mutable=True),
                 preferred_username=StandardAttribute(required=True, mutable=True)
             )
         )
@@ -125,5 +127,7 @@ class Infrastructure(TestingStack):
             authorizer_id=self.authorizer.ref
         )
 
-        self.add_output(self.API_URL, value=self.api.attr_api_endpoint)
-        self.add_output(self.API_ENDPOINT, value=f'{self.api.attr_api_endpoint}/{self.stage.stage_name}/dummy')
+        self.add_output(self.API_URL_KEY, value=self.api.attr_api_endpoint)
+        self.add_output(self.API_ENDPOINT_KEY, value=f'{self.api.attr_api_endpoint}/{self.stage.stage_name}/dummy')
+        self.add_output(self.USER_POOL_ID_KEY, value=self.pool.user_pool_id)
+        self.add_output(self.USER_POOL_CLIENT_ID_KEY, value=self.client.user_pool_client_id)

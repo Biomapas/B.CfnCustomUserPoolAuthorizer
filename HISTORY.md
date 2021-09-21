@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.6
+* First attempt to verify cognito user pool JWT token.
+
 ### 0.0.5
 * Still work in progress. Requests and tests work. 
 * Checking the actual access token - in progress.

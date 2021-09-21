@@ -1,7 +1,9 @@
 import json
 import os
 
+from auth_exception import AuthException
 from policy_document import PolicyDocument
+from token_verification import TokenVerification
 
 
 def handler(event, context):
@@ -11,17 +13,18 @@ def handler(event, context):
         region=os.environ['AWS_REGION'],
         account_id=os.environ['AWS_ACCOUNT'],
         api_id=os.environ['AWS_API_ID']
-    ).create_policy_statement(allow=True)
+    )
 
-    print(f'Returning response:\n{json.dumps(document)}')
-
-    return document
-
-
-
-
-
-
+    # Verify the authorization token.
+    try:
+        TokenVerification(event.get('Authorization')).verify()
+        # Authorization was successful. Return "Allow".
+        return document.create_policy_statement(allow=True)
+    except AuthException as ex:
+        # Log the error.
+        print(ex)
+        # Authorization has failed. Return "Deny".
+        return document.create_policy_statement(allow=False)
 
 # # Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # #

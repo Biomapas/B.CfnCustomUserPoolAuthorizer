@@ -1,3 +1,5 @@
+from typing import Union
+
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_lambda import Function, Code, Runtime, CfnPermission
 from aws_cdk.aws_logs import RetentionDays
@@ -5,7 +7,8 @@ from aws_cdk.core import Duration, Stack
 from b_lambda_layer_common.layer_v2 import LayerV2 as BLayer
 from b_lambda_layer_common.package_version import PackageVersion
 
-from b_cfn_custom_userpool_authorizer.user_pool_config import UserPoolConfig
+from b_cfn_custom_userpool_authorizer.config.user_pool_config import UserPoolConfig
+from b_cfn_custom_userpool_authorizer.config.user_pool_ssm_config import UserPoolSsmConfig
 
 
 class AuthorizerFunction(Function):
@@ -13,7 +16,7 @@ class AuthorizerFunction(Function):
             self,
             scope: Stack,
             name: str,
-            user_pool_config: UserPoolConfig,
+            user_pool_config: Union[UserPoolConfig, UserPoolSsmConfig],
             *args,
             **kwargs
     ) -> None:
@@ -49,7 +52,7 @@ class AuthorizerFunction(Function):
             principal='apigateway.amazonaws.com',
         )
 
-        if user_pool_config.ssm_specified:
+        if isinstance(user_pool_config, UserPoolSsmConfig):
             self.add_to_role_policy(
                 PolicyStatement(
                     actions=['ssm:GetParameters'],

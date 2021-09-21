@@ -29,6 +29,7 @@ setup(
     install_requires=[
         'b-continuous-subprocess>=0.3.2,<1.0.0',
         'b-lambda-layer-common>=1.18.0,<2.0.0',
+        'b-aws-cdk-parallel>=1.3.0,<2.0.0',
         'aws_cdk.aws_apigatewayv2>=1.90.0',
         'aws_cdk.aws_lambda>=1.90.0',
         'aws-cdk.assets>=1.90.0',
@@ -37,9 +38,10 @@ setup(
         'aws-cdk.custom-resources>=1.90.0',
         'aws-cdk.cloud-assembly-schema>=1.90.0',
         'aws-cdk.region-info>=1.90.0',
+        'aws-cdk.aws-cognito>=1.90.0',
     ],
     keywords='AWS Cognito UserPool Authorizer',
-    url='https://github.com/biomapas/B.AwsCustomUserPoolAuthorizer.git',
+    url='https://github.com/biomapas/B.CfnCustomUserPoolAuthorizer.git',
     classifiers=[
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',

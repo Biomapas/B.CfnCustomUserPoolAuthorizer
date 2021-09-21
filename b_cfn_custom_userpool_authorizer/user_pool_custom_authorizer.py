@@ -1,7 +1,10 @@
+from typing import Union
+
 from aws_cdk.aws_apigatewayv2 import CfnAuthorizer, CfnApi
 from aws_cdk.core import Stack
-from b_cfn_custom_userpool_authorizer.user_pool_config import UserPoolConfig
 
+from b_cfn_custom_userpool_authorizer.config.user_pool_config import UserPoolConfig
+from b_cfn_custom_userpool_authorizer.config.user_pool_ssm_config import UserPoolSsmConfig
 from b_cfn_custom_userpool_authorizer.user_pool_custom_authorizer_function import AuthorizerFunction
 
 
@@ -11,7 +14,7 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
             scope: Stack,
             name: str,
             api: CfnApi,
-            user_pool_config: UserPoolConfig,
+            user_pool_config: Union[UserPoolConfig, UserPoolSsmConfig]
     ) -> None:
         """
         Constructor.

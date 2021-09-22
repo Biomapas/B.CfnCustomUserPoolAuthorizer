@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.8
+* Fix testing configuration.
+
 ### 0.0.7
 * Success! Authorizer can now successfully authorize tokens.
 

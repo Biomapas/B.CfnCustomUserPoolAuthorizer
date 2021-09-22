@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.9
+* Enable caching.
+
 ### 0.0.8
 * Fix testing configuration.
 

@@ -13,8 +13,8 @@ USER_POOL_ID = os.environ['USER_POOL_ID']
 USER_POOL_CLIENT_ID = os.environ['USER_POOL_CLIENT_ID']
 KEYS_URL = f'https://cognito-idp.{USER_POOL_REGION}.amazonaws.com/{USER_POOL_ID}/.well-known/jwks.json'
 
-HTTP_MANGER = urllib3.PoolManager()
-KEYS = json.loads(HTTP_MANGER.request('GET', KEYS_URL).data.decode())['keys']
+HTTP_MANAGER = urllib3.PoolManager()
+KEYS = json.loads(HTTP_MANAGER.request('GET', KEYS_URL).data.decode())['keys']
 
 
 class TokenVerification:

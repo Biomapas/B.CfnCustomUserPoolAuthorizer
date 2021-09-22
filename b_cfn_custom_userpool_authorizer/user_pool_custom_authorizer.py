@@ -14,7 +14,8 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
             scope: Stack,
             name: str,
             api: CfnApi,
-            user_pool_config: Union[UserPoolConfig, UserPoolSsmConfig]
+            user_pool_config: Union[UserPoolConfig, UserPoolSsmConfig],
+            cache_ttl: int = 60
     ) -> None:
         """
         Constructor.
@@ -22,6 +23,11 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
         :param scope: CloudFormation stack.
         :param name: Name of the custom authorizer e.g. "MyCoolAuthorizer".
         :param api: Parent API for which we are creating the authorizer.
+        :param user_pool_config: Configuration of the user pool data.
+        :param cache_ttl: The TTL in seconds of cached authorizer results.
+            If it equals 0, authorization caching is disabled.
+            If it is greater than 0, API Gateway will cache authorizer responses.
+            The maximum value is 3600, or 1 hour.
         """
         lambda_function = AuthorizerFunction(
             scope=scope,
@@ -43,7 +49,7 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
             name=name,
             api_id=api.ref,
             authorizer_payload_format_version='2.0',
-            authorizer_result_ttl_in_seconds=0,
+            authorizer_result_ttl_in_seconds=cache_ttl,
             authorizer_type='REQUEST',
             authorizer_uri=(
                 f'arn:aws:apigateway:{scope.region}:'
@@ -51,5 +57,7 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
                 f'aws:lambda:{scope.region}:{scope.account}:'
                 f'function:{lambda_function.function_name}/invocations'
             ),
-            identity_source=[],
+            identity_source=[
+                '$request.header.Authorization'
+            ],
         )

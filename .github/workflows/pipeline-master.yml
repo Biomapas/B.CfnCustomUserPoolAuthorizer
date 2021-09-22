@@ -12,7 +12,6 @@ on:
 jobs:
   install-test-build-push:
     runs-on: ubuntu-latest
-    container: biomapas/cicd-full:0.0.2
 
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +20,12 @@ jobs:
         run: |
           npm install -g aws-cdk
           pip install . --upgrade
+
           pip list
+          docker --version
+          python --version
+          node --version
+          npm --version
 
       - name: IntegrationTest
         run: |

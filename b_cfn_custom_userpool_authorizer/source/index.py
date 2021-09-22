@@ -17,7 +17,7 @@ def handler(event, context):
 
     # Verify the authorization token.
     try:
-        TokenVerification(event.get('Authorization')).verify()
+        TokenVerification(event.get('headers', {}).get('authorization')).verify()
         # Authorization was successful. Return "Allow".
         return document.create_policy_statement(allow=True)
     except AuthException as ex:

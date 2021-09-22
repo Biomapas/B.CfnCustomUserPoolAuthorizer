@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.7
+* Success! Authorizer can now successfully authorize tokens.
+
 ### 0.0.6
 * First attempt to verify cognito user pool JWT token.
 

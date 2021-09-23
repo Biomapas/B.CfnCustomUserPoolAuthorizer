@@ -27,6 +27,7 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
+        'python-jose>=3.3.0',
         'b-continuous-subprocess>=0.3.2,<1.0.0',
         'b-lambda-layer-common>=1.18.0,<2.0.0',
         'b-aws-cdk-parallel>=1.3.0,<2.0.0',

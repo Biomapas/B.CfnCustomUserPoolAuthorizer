@@ -1,5 +1,4 @@
 import json
-import os
 import time
 
 import urllib3
@@ -7,12 +6,9 @@ from jose import jwk, jwt
 from jose.utils import base64url_decode
 
 from auth_exception import AuthException
+from user_pool_resolver import Resolver
 
-USER_POOL_REGION = os.environ['USER_POOL_REGION']
-USER_POOL_ID = os.environ['USER_POOL_ID']
-USER_POOL_CLIENT_ID = os.environ['USER_POOL_CLIENT_ID']
-KEYS_URL = f'https://cognito-idp.{USER_POOL_REGION}.amazonaws.com/{USER_POOL_ID}/.well-known/jwks.json'
-
+KEYS_URL = f'https://cognito-idp.{Resolver.user_pool_region}.amazonaws.com/{Resolver.user_pool_id}/.well-known/jwks.json'
 HTTP_MANAGER = urllib3.PoolManager()
 KEYS = json.loads(HTTP_MANAGER.request('GET', KEYS_URL).data.decode())['keys']
 
@@ -37,7 +33,7 @@ class TokenVerification:
         """
         print(
             f'Verifying access token: {self.__access_token}. '
-            f'{USER_POOL_REGION=}, {USER_POOL_ID=}, {USER_POOL_CLIENT_ID=}.'
+            f'{Resolver.user_pool_region=}, {Resolver.user_pool_id=}, {Resolver.user_pool_client_id=}.'
         )
 
         # Get the kid from the headers prior to verification.
@@ -73,5 +69,5 @@ class TokenVerification:
 
         # And the Audience (use claims['client_id'] if verifying an access token). Read more here:
         # https://stackoverflow.com/questions/53148711/why-doesnt-amazon-cognito-return-an-audience-field-in-its-access-tokens
-        if (claims.get('aud') or claims.get('client_id')) != USER_POOL_CLIENT_ID:
+        if (claims.get('aud') or claims.get('client_id')) != Resolver.user_pool_client_id:
             raise AuthException('Token was not issued for this audience')

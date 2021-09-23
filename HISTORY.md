@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.11
+* Add readme.
+
 ### 0.0.10
 * Add tests.
 

@@ -29,7 +29,7 @@ setup(
     install_requires=[
         'python-jose>=3.3.0',
         'b-continuous-subprocess>=0.3.2,<1.0.0',
-        'b-lambda-layer-common>=1.18.0,<2.0.0',
+        'b-lambda-layer-common>=1.20.0,<2.0.0',
         'b-aws-cdk-parallel>=1.3.0,<2.0.0',
         'b-cfn-lambda-integration>=0.0.8,<1.0.0',
         'aws_cdk.aws_apigatewayv2>=1.90.0',

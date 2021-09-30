@@ -43,6 +43,26 @@ def test_authorizer_with_invalid_expiration_deny(access_token) -> None:
     assert __make_call(access_token).status == 403
 
 
+def test_authorizer_with_no_access_token() -> None:
+    """
+    Tests whether the authorizer denys the request to pass through, if
+    there is no access token.
+
+    :return: No return.
+    """
+    endpoint = MainStack.get_output(MainStack.API_ENDPOINT_KEY)
+
+    http = urllib3.PoolManager()
+
+    response = http.request(
+        method='GET',
+        url=endpoint,
+        headers={},
+    )
+
+    assert response.status == 401
+
+
 def __make_call(access_token) -> HTTPResponse:
     endpoint = MainStack.get_output(MainStack.API_ENDPOINT_KEY)
 

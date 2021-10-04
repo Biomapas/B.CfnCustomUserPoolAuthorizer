@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.13
+* Update B.LambdaLayerCommon dependency.
+
 ### 0.0.12
 * Add more integration tests.
 * Update b_lambda_layer_common dependency.

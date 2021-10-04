@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.14
+* Simplify logging with pytest.
+
 ### 0.0.13
 * Update B.LambdaLayerCommon dependency.
 

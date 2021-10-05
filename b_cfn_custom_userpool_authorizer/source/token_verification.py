@@ -2,7 +2,7 @@ import json
 import time
 
 import urllib3
-from jose import jwk, jwt
+from jose import jwk, jwt, JWTError
 from jose.utils import base64url_decode
 
 from auth_exception import AuthException
@@ -22,7 +22,7 @@ class TokenVerification:
         self.__access_token = access_token
 
         if not access_token:
-            raise AuthException('Access token not provided!')
+            raise AuthException('Access token not provided.')
 
     def verify(self) -> None:
         """
@@ -36,8 +36,12 @@ class TokenVerification:
             f'{Resolver.user_pool_region=}, {Resolver.user_pool_id=}, {Resolver.user_pool_client_id=}.'
         )
 
+        try:
+            headers = jwt.get_unverified_headers(self.__access_token)
+        except JWTError:
+            raise AuthException('Unable to retrieve unverified headers.')
+
         # Get the kid from the headers prior to verification.
-        headers = jwt.get_unverified_headers(self.__access_token)
         kid = headers['kid']
         # Search for the kid in the downloaded public keys.
         key_index = -1
@@ -46,7 +50,7 @@ class TokenVerification:
                 key_index = i
                 break
         if key_index == -1:
-            raise AuthException('Public key not found in jwks.json!')
+            raise AuthException('Public key not found in jwks.json.')
 
         # Construct the public key.
         public_key = jwk.construct(KEYS[key_index])
@@ -57,17 +61,20 @@ class TokenVerification:
 
         # Verify the signature.
         if not public_key.verify(message.encode("utf8"), decoded_signature):
-            raise AuthException('Signature verification failed!')
+            raise AuthException('Signature verification failed.')
 
         # Since we passed the verification, we can now safely use the unverified claims.
-        claims = jwt.get_unverified_claims(self.__access_token)
+        try:
+            claims = jwt.get_unverified_claims(self.__access_token)
+        except JWTError:
+            raise AuthException('Unable to retrieve unverified claims.')
         print(f'Claims: {claims}.')
 
         # Additionally we can verify the token expiration.
         if time.time() > claims['exp']:
-            raise AuthException('Token is expired!')
+            raise AuthException('Token is expired.')
 
         # And the Audience (use claims['client_id'] if verifying an access token). Read more here:
         # https://stackoverflow.com/questions/53148711/why-doesnt-amazon-cognito-return-an-audience-field-in-its-access-tokens
         if (claims.get('aud') or claims.get('client_id')) != Resolver.user_pool_client_id:
-            raise AuthException('Token was not issued for this audience')
+            raise AuthException('Token was not issued for this audience.')

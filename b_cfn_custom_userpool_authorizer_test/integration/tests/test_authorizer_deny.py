@@ -1,3 +1,4 @@
+import pytest
 import urllib3
 from urllib3 import HTTPResponse
 
@@ -7,7 +8,7 @@ from b_cfn_custom_userpool_authorizer_test.integration.util.urlsafe_json import 
 
 def test_authorizer_with_invalid_kid_deny(access_token) -> None:
     """
-    Tests whether the authorizer denys the request to pass through, if the
+    Tests whether the authorizer denies the request to pass through, if the
     access token is invalid (invalid kid).
 
     :param access_token: (Fixture) valid access token that will be modified to be invalid.
@@ -26,7 +27,7 @@ def test_authorizer_with_invalid_kid_deny(access_token) -> None:
 
 def test_authorizer_with_invalid_expiration_deny(access_token) -> None:
     """
-    Tests whether the authorizer denys the request to pass through, if the
+    Tests whether the authorizer denies the request to pass through, if the
     access token is invalid (invalid expiration time).
 
     :param access_token: (Fixture) valid access token that will be modified to be invalid.
@@ -43,9 +44,29 @@ def test_authorizer_with_invalid_expiration_deny(access_token) -> None:
     assert __make_call(access_token).status == 403
 
 
+@pytest.mark.parametrize(
+    'invalid_access_token',
+    [
+        '',
+        'aaa',
+        'aaa.bbb.ccc'
+    ]
+)
+def test_authorizer_with_absolutely_invalid_access_token(invalid_access_token) -> None:
+    """
+    Tests whether the authorizer denies the request to pass through, if the
+    access token is not even resembling jwt.
+
+    :param invalid_access_token: Invalid valid access token.
+
+    :return: No return.
+    """
+    assert __make_call(invalid_access_token).status == 403
+
+
 def test_authorizer_with_no_access_token() -> None:
     """
-    Tests whether the authorizer denys the request to pass through, if
+    Tests whether the authorizer denies the request to pass through, if
     there is no access token.
 
     :return: No return.

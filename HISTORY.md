@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.16
+* Add more tests to handle completely broken jwt tokens like "aaa.bbb.ccc".
+
 ### 0.0.14
 * Simplify logging with pytest.
 

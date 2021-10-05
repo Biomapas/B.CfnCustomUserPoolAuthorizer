@@ -1,5 +1,7 @@
 # B.CfnCustomUserPoolAuthorizer
 
+![Pipeline](https://github.com/Biomapas/B.CfnCustomUserPoolAuthorizer/workflows/Pipeline/badge.svg?branch=master)
+
 An AWS CDK resource that mimics original UserPoolAuthorizer resource.
 
 ### Description

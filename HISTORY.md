@@ -1,5 +1,8 @@
 # Release history
 
+### 0.1.0
+* Add property to expose authorization type for API Gateway APIs.
+
 ### 0.0.16
 * Add more tests to handle completely broken jwt tokens like "aaa.bbb.ccc".
 

@@ -61,3 +61,13 @@ class UserPoolCustomAuthorizer(CfnAuthorizer):
                 '$request.header.Authorization'
             ],
         )
+
+    @property
+    def authorization_type(self) -> str:
+        """
+        Property for authorization type when used with API Gateway service. Read more here:
+        https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-route.html#cfn-apigatewayv2-route-authorizationtype
+
+        :return: Authorization type string.
+        """
+        return 'CUSTOM'

@@ -20,12 +20,9 @@ class TokenVerification:
     https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py
     """
     def __init__(self, access_token: str):
-        self.__access_token = access_token
-
         # If there is a 'Bearer ' string at the beginning of the token (indicating that
         # this is a Bearer Token) it must be removed before token verification.
-        if self.__access_token.startswith('Bearer '):
-            self.__access_token = self.__access_token[7:]
+        self.__access_token = access_token.replace('Bearer ', '')
 
         if not access_token:
             raise AuthException('Access token not provided.')

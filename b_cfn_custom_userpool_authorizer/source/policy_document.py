@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict, Optional
 
 
 class PolicyDocument:
@@ -18,8 +18,11 @@ class PolicyDocument:
 
     def create_policy_statement(
             self,
-            allow: bool = False
+            allow: bool = False,
+            claims: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
+        claims = claims or {}
+
         return {
             'principalId': 'user',
             'policyDocument': {
@@ -31,5 +34,18 @@ class PolicyDocument:
                         'Effect': 'Allow' if allow else 'Deny'
                     }
                 ]
+            },
+            'context': {
+                'auth_time': claims.get('auth_time'),
+                'client_id': claims.get('client_id'),
+                'event_id': claims.get('event_id'),
+                'exp': claims.get('exp'),
+                'iat': claims.get('iat'),
+                'iss': claims.get('iss'),
+                'jti': claims.get('jti'),
+                'scope': claims.get('scope'),
+                'sub': claims.get('sub'),
+                'token_use': claims.get('token_use'),
+                'username': claims.get('username')
             }
         }

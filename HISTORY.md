@@ -1,5 +1,9 @@
 # Release history
 
+### 0.1.1
+* Add the ability to use a Bearer Token.
+* Add JWT claims to authorizer output.
+
 ### 0.1.0
 * Add property to expose authorization type for API Gateway APIs.
 

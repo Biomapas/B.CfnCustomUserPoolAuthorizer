@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Any, Dict
 
 import urllib3
 from jose import jwk, jwt, JWTError
@@ -21,15 +22,20 @@ class TokenVerification:
     def __init__(self, access_token: str):
         self.__access_token = access_token
 
+        # If there is a 'Bearer ' string at the beginning of the token (indicating that
+        # this is a Bearer Token) it must be removed before token verification.
+        if self.__access_token.startswith('Bearer '):
+            self.__access_token = self.__access_token[7:]
+
         if not access_token:
             raise AuthException('Access token not provided.')
 
-    def verify(self) -> None:
+    def verify(self) -> Dict[str, Any]:
         """
         Verifies the provided access token. If token is not valid
         an exception is thrown. If no exception is thrown - token is valid.
 
-        :return: No return.
+        :return: JWT claims.
         """
         print(
             f'Verifying access token: {self.__access_token}. '
@@ -78,3 +84,5 @@ class TokenVerification:
         # https://stackoverflow.com/questions/53148711/why-doesnt-amazon-cognito-return-an-audience-field-in-its-access-tokens
         if (claims.get('aud') or claims.get('client_id')) != Resolver.user_pool_client_id:
             raise AuthException('Token was not issued for this audience.')
+
+        return claims

@@ -1,5 +1,8 @@
 # Release history
 
+### 0.1.1
+* Stricten up dependencies range.
+
 ### 0.1.0
 * Add property to expose authorization type for API Gateway APIs.
 

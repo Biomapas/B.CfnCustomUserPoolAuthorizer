@@ -1,7 +1,11 @@
 # Release history
 
+### 0.1.2
+* Make dependency range more strict.
+
 ### 0.1.1
-* Stricten up dependencies range.
+* Add the ability to use a Bearer Token.
+* Add JWT claims to authorizer output.
 
 ### 0.1.0
 * Add property to expose authorization type for API Gateway APIs.

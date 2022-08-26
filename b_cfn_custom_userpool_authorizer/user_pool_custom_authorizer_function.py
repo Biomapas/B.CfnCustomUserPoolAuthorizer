@@ -33,7 +33,8 @@ class AuthorizerFunction(Function):
                     scope=scope,
                     name=f'{name}BCommonLayer',
                     dependencies={
-                        'python-jose': PackageVersion.from_string_version('3.3.0')
+                        'python-jose': PackageVersion.from_string_version('3.3.0'),
+                        'b-lambda-layer-common': PackageVersion.from_string_version('4.0.0')
                     }
                 )
             ],

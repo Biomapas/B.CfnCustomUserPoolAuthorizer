@@ -5,7 +5,7 @@ from aws_cdk.aws_lambda import Function, Code, Runtime, CfnPermission
 from aws_cdk.aws_logs import RetentionDays
 from aws_cdk.core import Duration, Stack
 from b_cfn_lambda_layer.package_version import PackageVersion
-from b_lambda_layer_common.layer import Layer
+from b_cfn_lambda_layer.lambda_layer import LambdaLayer
 
 from b_cfn_custom_userpool_authorizer.config.user_pool_config import UserPoolConfig
 from b_cfn_custom_userpool_authorizer.config.user_pool_ssm_config import UserPoolSsmConfig
@@ -29,7 +29,7 @@ class AuthorizerFunction(Function):
             runtime=Runtime.PYTHON_3_8,
             environment=user_pool_config.to_dict(),
             layers=[
-                Layer(
+                LambdaLayer(
                     scope=scope,
                     name=f'{name}BCommonLayer',
                     dependencies={

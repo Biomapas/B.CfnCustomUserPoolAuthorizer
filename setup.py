@@ -29,9 +29,8 @@ setup(
     install_requires=[
         # Other.
         'python-jose>=3.3.0',
-        'b-continuous-subprocess>=0.3.2,<1.0.0',
-        'b-lambda-layer-common>=2.0.0,<3.0.0',
-        'b-aws-cdk-parallel>=1.3.0,<2.0.0',
+        'b-lambda-layer-common>=4.0.0,<5.0.0',
+        'b-cfn-lambda-layer>=2.4.0,<3.0.0',
         'b-cfn-lambda-integration>=0.0.8,<1.0.0',
         
         # AWS CDK.

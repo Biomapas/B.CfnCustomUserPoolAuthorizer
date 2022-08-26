@@ -1,0 +1,4 @@
+pytest
+b-aws-testing-framework
+b-aws-cdk-parallel
+b-continuous-subprocess

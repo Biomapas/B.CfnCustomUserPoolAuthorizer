@@ -1,5 +1,8 @@
 # Release history
 
+### 1.0.0
+* Upgrade dependencies to breaking versions.
+
 ### 0.1.2
 * Make dependency range more strict.
 

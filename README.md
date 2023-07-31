@@ -76,7 +76,7 @@ pip install b-cfn-custom-userpool-authorizer
 ### Usage & Examples
 
 ```python
-from aws_cdk.core import Stack
+from aws_cdk import Stack
 from aws_cdk.aws_cognito import UserPool, UserPoolClient
 from aws_cdk.aws_apigatewayv2 import CfnApi
 
@@ -116,5 +116,5 @@ pytest b_cfn_custom_userpool_authorizer_test/integration/tests
 
 Found a bug? Want to add or suggest a new feature? 
 Contributions of any kind are gladly welcome. 
-You may contact us directly, create a pull-request or an issue in github platform. 
+You may contact us directly, create a pull-request or an issue in GitHub platform. 
 Lets modernize the world together.

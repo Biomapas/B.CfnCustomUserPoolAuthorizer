@@ -1,11 +1,11 @@
 from typing import Union
 
+from aws_cdk import Duration, Stack
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_lambda import Function, Code, Runtime, CfnPermission
 from aws_cdk.aws_logs import RetentionDays
-from aws_cdk.core import Duration, Stack
-from b_cfn_lambda_layer.package_version import PackageVersion
 from b_cfn_lambda_layer.lambda_layer import LambdaLayer
+from b_cfn_lambda_layer.package_version import PackageVersion
 
 from b_cfn_custom_userpool_authorizer.config.user_pool_config import UserPoolConfig
 from b_cfn_custom_userpool_authorizer.config.user_pool_ssm_config import UserPoolSsmConfig

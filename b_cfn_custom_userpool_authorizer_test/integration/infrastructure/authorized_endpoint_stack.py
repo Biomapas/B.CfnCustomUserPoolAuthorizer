@@ -1,6 +1,6 @@
+from aws_cdk import Stack, Duration
 from aws_cdk.aws_apigatewayv2 import CfnRoute, CfnAuthorizer, CfnApi
 from aws_cdk.aws_lambda import Function, Code, Runtime, CfnPermission
-from aws_cdk.core import Stack, Duration
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
 from b_cfn_lambda_integration.lambda_integration import LambdaIntegration
 

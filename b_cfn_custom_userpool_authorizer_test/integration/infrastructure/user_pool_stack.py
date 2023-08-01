@@ -1,6 +1,6 @@
-from aws_cdk.aws_cognito import *
+from aws_cdk import Stack
+from aws_cdk.aws_cognito import UserPool, AccountRecovery, AutoVerifiedAttrs, SignInAliases, StandardAttributes, StandardAttribute, UserPoolClient, AuthFlow
 from aws_cdk.aws_ssm import StringParameter
-from aws_cdk.core import Stack
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
 
 

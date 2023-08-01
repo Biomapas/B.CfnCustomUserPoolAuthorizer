@@ -30,19 +30,12 @@ setup(
         # Other.
         'python-jose>=3.3.0',
         'b-lambda-layer-common>=4.0.0,<5.0.0',
-        'b-cfn-lambda-layer>=2.4.1,<3.0.0',
-        'b-cfn-lambda-integration>=0.0.8,<1.0.0',
-        
+        'b-cfn-lambda-layer>=3.0.0,<4.0.0',
+        'b-cfn-lambda-integration>=1.0.0,<2.0.0',
+
         # AWS CDK.
-        'aws_cdk.aws_apigatewayv2>=1.90.0,<2.0.0',
-        'aws_cdk.aws_lambda>=1.90.0,<2.0.0',
-        'aws-cdk.assets>=1.90.0,<2.0.0',
-        'aws-cdk.aws-ec2>=1.90.0,<2.0.0',
-        'aws-cdk.core>=1.90.0,<2.0.0',
-        'aws-cdk.custom-resources>=1.90.0,<2.0.0',
-        'aws-cdk.cloud-assembly-schema>=1.90.0,<2.0.0',
-        'aws-cdk.region-info>=1.90.0,<2.0.0',
-        'aws-cdk.aws-cognito>=1.90.0,<2.0.0',
+        'aws-cdk-lib>=2.0.0,<3.0.0',
+        'aws-cdk-constructs>=2.0.0,<3.0.0'
     ],
     keywords='AWS Cognito UserPool Authorizer',
     url='https://github.com/biomapas/B.CfnCustomUserPoolAuthorizer.git',
